@@ -9,7 +9,11 @@ const Logo = ({ className }) => {
     return (
       <Link id="Logo" to={"/"} className={` ${className || ""}`}>
         <figure className={" max-w-[6rem] "}>
-          <img className={" w-full h-full"} src={homeData.image} alt="Logo" />
+          <img
+            className={" w-full h-full"}
+            src={`http://localhost:8000${homeData.image}`}
+            alt="Logo"
+          />
         </figure>
       </Link>
     );
