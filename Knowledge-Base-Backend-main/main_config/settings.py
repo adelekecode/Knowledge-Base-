@@ -33,15 +33,37 @@ ALLOWED_HOSTS = ['127.0.0.1', '0.0.0.0:$PORT', 'localhost']
 
 CSRF_TRUSTED_ORIGINS = ['https://*.127.0.0.1', 'http://localhost']
 
+
 CORS_ALLOWED_ORIGINS = [
-    "http://localhost:4000/",
+    "http://localhost:4000",
     "http://127.0.0.1:8080"
 ]
 
-CORS_ALLOW_ALL_ORIGIN = True
-CORS_ORIGIN_ALLOW_ALL = False
-CORS_ALLOW_ALL_ORIGINS = True
-CORS_ALLOW_CREDENTIALS = True
+CORS_ALLOW_HEADERS = [
+    'accept',
+    'accept-encoding',
+    'authorization',
+    'content-type',
+    'dnt',
+    'origin',
+    'user-agent',
+    'x-csrftoken',
+    'x-requested-with',
+]
+
+CORS_ALLOW_METHODS = [
+    "DELETE",
+    "GET",
+    "OPTIONS",
+    "PATCH",
+    "POST",
+    "PUT",
+]
+
+# CORS_ALLOW_ALL_ORIGIN = True
+# CORS_ORIGIN_ALLOW_ALL = False
+# CORS_ALLOW_ALL_ORIGINS = True
+# CORS_ALLOW_CREDENTIALS = True
 # SECURITY WARNING: don't run with debug turned on in production!http://localhost:4000/category
 DEBUG = True
 
