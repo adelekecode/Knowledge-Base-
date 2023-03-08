@@ -1,0 +1,52 @@
+*,
+*::before,
+*::after {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: "Roboto", sans-serif;
+}
+
+body {
+  width: 100%;
+  min-height: 100vh;
+}
+
+.App {
+  min-height: 100vh;
+  position: relative;
+  /* max-width: 1666px;
+  margin: 0 auto; */
+}
+
+.active {
+  background-color: #fff !important;
+}
+
+.Data-Table-Container {
+  border: 1px solid #d8d8d8;
+  border-top: none;
+  border-radius: 10px;
+}
+
+/* .rcp-fields-element:nth-child(1) {
+  display: none !important;
+} */
+
+.colorPalette {
+  border: 1px solid rgb(209 213 219);
+  border-radius: 11px;
+}
+
+.rcp-fields {
+  grid-template-columns: none !important;
+}
+
+/* #Bar-Chart-Container::-webkit-scrollbar {
+  display: none;
+}
+
+#Bar-Chart-Container {
+  -ms-overflow-style: none;
+  scrollbar-width: none; 
+} */
