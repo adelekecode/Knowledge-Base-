@@ -1,7 +1,7 @@
 import axios from "axios";
 
 export const BaseURL =
-  process.env.REACT_APP_API_URL || "https://knowledgebaseapi.herokuapp.com/";
+  process.env.REACT_APP_API_URL || "http://localhost:8000/";
 
 export default axios.create({
   baseURL: BaseURL,

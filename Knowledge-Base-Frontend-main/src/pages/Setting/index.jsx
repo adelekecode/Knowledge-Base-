@@ -92,11 +92,19 @@ const Setting = () => {
         className="border border-gray-500 w-fit rounded-lg p-1"
       >
         <div className=" w-[6rem] h-[6rem] grid place-content-center border border-gray-400 rounded-md">
-          <img
-            className="inline-flex border-2 border-gray-100 w-full max-h-24"
-            src={file.preview}
-            alt={file.name}
-          />
+          {file.preview.startsWith("blob") ? (
+            <img
+              className="inline-flex border-2 border-gray-100 w-full max-h-24"
+              src={file.preview}
+              alt={file.name}
+            />
+          ) : (
+            <img
+              className="inline-flex border-2 border-gray-100 w-full max-h-24"
+              src={`http://localhost:8000${file.preview}`}
+              alt={file.name}
+            />
+          )}
         </div>
       </div>
     ));
@@ -124,7 +132,7 @@ const Setting = () => {
     formData.append("colour", color.hex);
 
     //! NOTE: This will give error if db is cleared
-    if (!(typeof files === "string") && defaultLogo) {
+    if (!(typeof files === "string") || defaultLogo) {
       formData.append("image", files[0]);
     }
 
@@ -215,7 +223,7 @@ const Setting = () => {
                       <div className=" w-[6rem] h-[6rem] grid place-content-center border border-gray-400 rounded-md">
                         <img
                           className="inline-flex border-2 border-gray-100 w-full max-h-24"
-                          src={files}
+                          src={`http://localhost:8000${files}`}
                           alt={"Logo"}
                         />
                       </div>

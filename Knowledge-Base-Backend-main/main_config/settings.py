@@ -33,6 +33,7 @@ ALLOWED_HOSTS = ['127.0.0.1', '0.0.0.0:$PORT', 'localhost']
 
 CSRF_TRUSTED_ORIGINS = ['https://*.127.0.0.1', 'http://localhost']
 
+
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:4000",
     "http://127.0.0.1:8080"
