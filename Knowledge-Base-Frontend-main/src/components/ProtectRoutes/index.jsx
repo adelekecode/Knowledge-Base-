@@ -16,6 +16,7 @@ const ProtectRoutes = ({ children }) => {
       !userData.userRole &&
       !userData.name
     ) {
+      console.log("this is the error");
       return navigate("/login");
     }
   });
@@ -35,24 +36,28 @@ const ProtectRoutes = ({ children }) => {
       .then((response) => {})
       .catch((error) => {
         if (error.response?.status === 401) {
+          console.log("Token is invalid");
           axios
             .post(
-              "auth/refresh",
+              "/auth/refresh",
               JSON.stringify({
                 refresh: userData.refreshToken,
               })
             )
             .then((res) => {
-              if (res.status === 200) {
-                localStorage.setItem("accessToken", res.data["access_token"]);
-              }
-            })
-            .catch((err) => {
-              if (err.response?.status === 401) {
-                notifyError("You token has expired, please login again");
-                return navigate("/login");
-              }
+              console.log("token now available");
+              console.log(res.data["access"]);
+              localStorage.setItem("accessToken", res.data["access"]);
+              // if (res.status === 200) {
+              // }
             });
+          // .catch((err) => {
+          //   if (err.response?.status === 401) {
+          //     console.log("error again");
+          //     notifyError("You token has expired, please login again");
+          //     return navigate("/login");
+          //   }
+          // });
         } else {
           throw new Error("Network Error Occured");
         }

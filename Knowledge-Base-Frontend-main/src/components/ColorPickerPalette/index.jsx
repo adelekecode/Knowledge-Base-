@@ -16,8 +16,11 @@ const ColorPickerPalette = ({ color, setColor }) => {
     } else if (windowWidth <= 767.9 && windowWidth >= 425) {
       setWidth(300);
       setHeight(110);
-    } else if (windowWidth <= 424.9) {
+    } else if (windowWidth <= 424.9 && windowWidth >= 301) {
       setWidth(250);
+      setHeight(80);
+    } else if (windowWidth <= 300.9) {
+      setWidth(200);
       setHeight(80);
     }
   }, []);

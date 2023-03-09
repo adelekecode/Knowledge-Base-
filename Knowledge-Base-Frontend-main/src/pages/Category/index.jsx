@@ -204,9 +204,9 @@ const Category = () => {
         id="my-modal-3"
         className="modal-toggle"
       />
-      <div className="modal RangeForPhone:z-[1000]">
+      <div className="modal RangeForPhone:z-[1000] SmallPhones$Tablets:p-4">
         <form
-          className="modal-box relative max-w-xl px-8 w-[700px]"
+          className="modal-box relative max-w-xl px-8 w-[700px] SmallPhones$Tablets:px-4"
           onSubmit={(e) => {
             if (currentCategory[0] === "edit" && currentCategory[1]) {
               return editCategoryHandler(e);
@@ -231,11 +231,16 @@ const Category = () => {
             <h1 className="font-semibold text-2xl pb-1">{changeFormText()}</h1>
           </div>
 
-          <LabelContainer label={"Category"} htmlFor={"category-input"}>
+          <LabelContainer
+            label={"Category"}
+            htmlFor={"category-input"}
+            className={"Mobile_L_425:flex-col"}
+            labelClassName={"Mobile_L_425:self-start Mobile_L_425:mb-2"}
+          >
             <Input
               id={"category-input"}
               readOnly={currentCategory[0] === "delete"}
-              className={"w-[70%]"}
+              className={"w-[70%] Mobile_L_425:w-[100%]"}
               placeholder={"Type in a category"}
               value={categoryVal}
               onChangeHandler={(e) => setCategoryVal(e.target.value)}

@@ -187,7 +187,7 @@ const Setting = () => {
                 "Settings_Page_620:mb-4 Settings_Page_620:self-start"
               }
             >
-              <div className="w-[60%] RangeForPhone:flex RangeForPhone:flex-row RangeForPhone:justify-center RangeForPhone:gap-8">
+              <div className="w-[60%] RangeForPhone:flex RangeForPhone:flex-row RangeForPhone:justify-center RangeForPhone:gap-8 RangeForPhone:w-[100%]">
                 <div
                   className="px-6 pt-5 pb-6 border-2 border-gray-300 dark:border-gray-500 border-dashed rounded-md cursor-pointer mb-2 RangeForPhone:hidden"
                   {...getRootProps()}

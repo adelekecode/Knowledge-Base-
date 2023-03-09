@@ -45,7 +45,7 @@ function App() {
           console.log(err);
           if (err.response?.status === 401) {
             // notifyError("You are not authorized");
-            navigate("/login");
+            // navigate("/login");
             throw new Error("You are not authorized");
           }
         });
