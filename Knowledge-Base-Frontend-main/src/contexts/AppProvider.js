@@ -33,7 +33,7 @@ const AppProvider = ({ children }) => {
     } catch (err) {
       console.log("ERROR: ", err);
       if (err.response?.status === 401) {
-        notifyError("You not authenticated, please login and try again");
+        notifyError("You are not authorized");
       }
     }
   };
@@ -84,7 +84,7 @@ const AppProvider = ({ children }) => {
 
   function logoutHandler() {
     setLoading(true);
-    const refreshToken = localStorage.getItem("refreshToken");
+    const refreshToken = userData.refreshToken;
 
     createAxiosInstance()
       .post("/auth/logout", JSON.stringify({ refresh: refreshToken }))
@@ -126,6 +126,7 @@ const AppProvider = ({ children }) => {
         setHomeData,
         fetchHomeData,
         logoutHandler,
+        setUserData,
       }}
     >
       {children}

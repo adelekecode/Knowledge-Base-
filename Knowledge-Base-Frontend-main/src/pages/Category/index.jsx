@@ -128,6 +128,7 @@ const Category = () => {
       .then((response) => {
         if (response.status === 200) {
           setCategoryVal("");
+          setCurrentCategory([]);
           notifySuccess("Category has been successfully deleted");
           modalRef.current.checked = false;
           fetchCategoryData();

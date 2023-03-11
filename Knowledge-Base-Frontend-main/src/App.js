@@ -1,4 +1,4 @@
-import { Routes, Route, useNavigate } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import { useContext, useEffect } from "react";
 import "./App.css";
 import {
@@ -17,7 +17,7 @@ import {
 import { Suspense } from "react";
 import { DashboardLayout, Layout } from "./components";
 import LazyLoader from "./components/LazyLoader";
-import { notifyError, ToastContainer } from "./components/ToastAlert";
+import { ToastContainer } from "./components/ToastAlert";
 import ProtectRoutes from "./components/ProtectRoutes";
 import LoadingState from "./components/LoadingState";
 import { createAxiosInstance } from "./api/axios";
@@ -26,7 +26,6 @@ import AdminRoutes from "./components/AdminRoutes";
 
 function App() {
   const { userData } = useContext(AppContext);
-  const navigate = useNavigate();
 
   useEffect(() => {
     if (userData) {

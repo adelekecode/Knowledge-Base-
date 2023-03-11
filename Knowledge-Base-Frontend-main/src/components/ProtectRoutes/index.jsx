@@ -5,7 +5,7 @@ import { notifyError } from "../ToastAlert";
 import { AppContext } from "../../contexts/AppProvider";
 
 const ProtectRoutes = ({ children }) => {
-  const { userData } = useContext(AppContext);
+  const { userData, setUserData } = useContext(AppContext);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -44,7 +44,11 @@ const ProtectRoutes = ({ children }) => {
               })
             )
             .then((res) => {
-              localStorage.setItem("accessToken", res.data["access"]);
+              localStorage.setItem("accessToken", res.data.access);
+              setUserData((prev) => ({
+                ...prev,
+                accessToken: res.data.access,
+              }));
             })
             .catch((err) => {
               console.log(err);

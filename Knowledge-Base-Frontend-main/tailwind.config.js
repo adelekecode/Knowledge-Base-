@@ -43,7 +43,7 @@ module.exports = {
         RangeForPhone: { max: "1023px" },
         // => @media (min-width: 200px) and (max-width:1023px) { ... }
 
-        MediumPhones: "375px",
+        MediumPhones: { max: "375px" },
         // => @media (min-width: 375px) { ... }
 
         SmallPhones$Tablets: { max: "800px" },
