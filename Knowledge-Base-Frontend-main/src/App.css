@@ -29,10 +29,6 @@ body {
   border-radius: 10px;
 }
 
-/* .rcp-fields-element:nth-child(1) {
-  display: none !important;
-} */
-
 .colorPalette {
   border: 1px solid rgb(209 213 219);
   border-radius: 11px;
@@ -42,11 +38,16 @@ body {
   grid-template-columns: none !important;
 }
 
-/* #Bar-Chart-Container::-webkit-scrollbar {
-  display: none;
+@media only screen and (max-width: 480px) {
+  .Toastify__toast-container--top-center {
+    top: 1em !important;
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+  }
 }
 
-#Bar-Chart-Container {
-  -ms-overflow-style: none;
-  scrollbar-width: none; 
-} */
+@media only screen and (max-width: 480px) {
+  .Toastify__toast-container {
+    width: 90vw !important;
+  }
+}

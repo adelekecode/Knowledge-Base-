@@ -28,7 +28,7 @@ const Button = ({
       type={`${type || "button"}`}
       onClick={onClickHandler}
       htmlFor={htmlFor || null}
-      className={`btn p-2 px-6 rounded-md text-white border hover:bg-white transition capitalize SmallPhones:p-4 SmallPhones:py-1 text-base ${
+      className={`btn p-2 px-6 rounded-md text-white border hover:bg-transparent transition capitalize SmallPhones:p-4 SmallPhones:py-1 text-base Mobile_L_425:!p-2 Mobile_L_425:!leading-[0.5rem] Mobile_L_425:!text-sm ${
         className || ""
       } `}
     >

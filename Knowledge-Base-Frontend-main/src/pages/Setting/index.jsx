@@ -303,10 +303,13 @@ const Setting = () => {
           </main>
 
           <div className={"w-full flex items-center justify-between mt-16"}>
-            <Link to={"/"} className={"underline self-end"}>
+            <Link
+              to={"/"}
+              className={"underline self-end Mobile_L_425:!text-xs"}
+            >
               {"<-- Go to Home"}
             </Link>
-            <Button type={"submit"} className={``}>
+            <Button type={"submit"} className={` Mobile_L_425:!text-xs`}>
               Update Homepage
             </Button>
           </div>
