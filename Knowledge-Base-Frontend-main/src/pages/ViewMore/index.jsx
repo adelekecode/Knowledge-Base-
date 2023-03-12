@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Pagination from "../../components/Pagination";
-import { createAxiosInstance } from "../../api/axios";
 import { notifyError } from "../../components/ToastAlert";
 import { useParams } from "react-router-dom";
 import Input from "../../components/Input";
 import ArticleDetailModalDisplay from "../../components/ArticleDetailModalDisplay";
 import styled from "styled-components";
 import { SiReadthedocs } from "react-icons/si";
+import { AppContext } from "../../contexts/AppProvider";
 
 const P = styled.p`
   &:hover {
@@ -15,6 +15,7 @@ const P = styled.p`
 `;
 
 const ViewMore = () => {
+  const { createAxiosInstance, homeData } = useContext(AppContext);
   const { cardID } = useParams();
   const [articleData, setArticleData] = useState([]);
   const [currPage, setCurrPage] = useState(1);
@@ -44,11 +45,6 @@ const ViewMore = () => {
         }
       } catch (err) {
         console.log(err);
-        if (err.response?.status === 401) {
-          notifyError("You are not authenticated, please login and try again");
-        } else if (err.response?.status === 400) {
-          notifyError("Something went wrong, please reload the page");
-        }
       }
     };
     fetchData();
@@ -82,58 +78,68 @@ const ViewMore = () => {
       </div>
       <main
         className={
-          "border border-gray-200 w-[80%] SmallPhones:w-full mx-auto mt-24 rounded-xl p-6 flex flex-col bg-white"
+          "border border-gray-200 w-[80%] mx-auto mt-24 rounded-xl p-6 flex flex-col bg-white  "
         }
       >
-        {currentData.length >= 1 ? (
-          <div className={"grid grid-cols-3"}>
-            {currentData.map((item) => (
-              <div key={item.id}>
-                <div
-                  className={
-                    " flex flex-row items-center gap-2 no-underline w-full pb-2 pt-2"
-                  }
-                >
-                  <SiReadthedocs className={" text-gray-600"} />
-                  <div
-                    className={`py-[1.2rem] p-2  ${
-                      item.id === currentData.length ||
-                      item.id === currentData.length - 1 ||
-                      item.id === currentData.length - 2
-                        ? "border-b-none"
-                        : "border-b"
-                    }`}
-                  >
-                    <P
-                      className="cursor-pointer"
-                      key={item.id}
-                      onClick={() => setItemModalDisplay(item.id)}
+        <div
+          className="SmallPhones:w-full overflow-x-auto"
+          id={"view-more-page"}
+        >
+          <div className=" SmallPhones$Tablets:min-w-[40rem] SmallPhones:min-w-[32rem] ">
+            {currentData.length >= 1 ? (
+              <div className={"grid grid-cols-3 "}>
+                {currentData.map((item) => (
+                  <div key={item.id}>
+                    <div
+                      className={
+                        " flex flex-row items-center gap-2 no-underline w-full pb-2 pt-2"
+                      }
                     >
-                      {item.title}
-                    </P>
+                      <SiReadthedocs className={" text-gray-600"} />
+                      <div
+                        className={`py-[1.2rem] p-2  ${
+                          item.id === currentData.length ||
+                          item.id === currentData.length - 1 ||
+                          item.id === currentData.length - 2
+                            ? "border-b-none"
+                            : "border-b"
+                        }`}
+                      >
+                        <P
+                          className="cursor-pointer"
+                          key={item.id}
+                          onClick={() => setItemModalDisplay(item.id)}
+                          color={homeData.colour}
+                        >
+                          {item.title}
+                        </P>
+                      </div>
+                    </div>
+                    {itemModalDisplay === item.id && (
+                      <div
+                        className={
+                          " bg-ArticleModal fixed z-[9999] w-[100%] left-0 top-0 h-[100vh] grid place-content-center cursor-default"
+                        }
+                        style={{
+                          display: `${itemModalDisplay ? "grid" : "none"}`,
+                        }}
+                      >
+                        <ArticleDetailModalDisplay
+                          displayFunc={() => setItemModalDisplay(null)}
+                          data={item}
+                        />
+                      </div>
+                    )}
                   </div>
-                </div>
-                {itemModalDisplay === item.id && (
-                  <div
-                    className={
-                      " bg-ArticleModal fixed z-[9999] w-[100%] left-0 top-0 h-[100vh] grid place-content-center cursor-default"
-                    }
-                    style={{ display: `${itemModalDisplay ? "grid" : "none"}` }}
-                  >
-                    <ArticleDetailModalDisplay
-                      displayFunc={() => setItemModalDisplay(null)}
-                      data={item}
-                    />
-                  </div>
-                )}
+                ))}
               </div>
-            ))}
+            ) : (
+              <div className="w-full grid place-content-center">
+                <p className="p-14 font-semibold text-xl SmallPhones:p-8">{`No Articles in ${categoryName}`}</p>
+              </div>
+            )}
           </div>
-        ) : (
-          <div className="w-full grid place-content-center">
-            <p className="p-14 font-semibold text-xl SmallPhones:p-8">{`No Articles in ${categoryName}`}</p>
-          </div>
-        )}
+        </div>
         <div className="mt-6 self-end">
           <Pagination
             currPage={currPage}

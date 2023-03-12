@@ -80,15 +80,12 @@ const Sidebar = ({ responsive, setResponsive }) => {
               <NavLink
                 key={route.id}
                 to={route.path}
-                // className={({ isActive }) =>
-                //   `${isActive ? "text-blue-400" : ""}`
-                // }
                 style={{
                   color: ({ isActive }) => {
                     console.log(isActive);
-                    // return `${isActive ? homeData?.colour : ""}`,
                   },
                 }}
+                onClick={() => setResponsive(!responsive)}
               >
                 <Li
                   className={`relative py-4 flex items-center w-full text-sm font-semibold transition-colors duration-150 gap-6 cursor-pointer`}

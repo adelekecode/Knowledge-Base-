@@ -20,12 +20,11 @@ import LazyLoader from "./components/LazyLoader";
 import { ToastContainer } from "./components/ToastAlert";
 import ProtectRoutes from "./components/ProtectRoutes";
 import LoadingState from "./components/LoadingState";
-import { createAxiosInstance } from "./api/axios";
 import { AppContext } from "./contexts/AppProvider";
 import AdminRoutes from "./components/AdminRoutes";
 
 function App() {
-  const { userData } = useContext(AppContext);
+  const { userData, createAxiosInstance } = useContext(AppContext);
 
   useEffect(() => {
     if (userData) {

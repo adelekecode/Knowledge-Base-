@@ -1,11 +1,12 @@
-import React, { createContext, useEffect } from "react";
+import React, { createContext, useContext, useEffect } from "react";
 import { useState } from "react";
-import { createAxiosInstance } from "../api/axios";
 import { notifyError } from "../components/ToastAlert";
+import { AppContext } from "./AppProvider";
 
 export const DashboardContext = createContext();
 
 const DashboardProvider = ({ children }) => {
+  const { createAxiosInstance } = useContext(AppContext);
   const [CategoryTableData, setCategoryTableData] = useState([]);
 
   const [filteredCategoryTableData, setFilteredCategoryTableData] =

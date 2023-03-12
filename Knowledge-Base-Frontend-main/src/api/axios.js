@@ -10,13 +10,13 @@ export default axios.create({
   },
 });
 
-export function createAxiosInstance() {
-  const accessToken = localStorage.getItem("accessToken");
-  return axios.create({
-    baseURL: BaseURL,
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${accessToken}`,
-    },
-  });
-}
+// export function createAxiosInstance() {
+//   const accessToken = localStorage.getItem("accessToken");
+//   return axios.create({
+//     baseURL: BaseURL,
+//     headers: {
+//       "Content-Type": "application/json",
+//       Authorization: `Bearer ${accessToken}`,
+//     },
+//   });
+// }

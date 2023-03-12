@@ -10,9 +10,10 @@ import { DashboardContext } from "../../contexts/DashboardProvider";
 import PageTitle from "../../components/PageTitle";
 import Input from "../../components/Input";
 import { notifyError, notifySuccess } from "../../components/ToastAlert";
-import { createAxiosInstance } from "../../api/axios";
+import { AppContext } from "../../contexts/AppProvider";
 
 const Article = () => {
+  const { createAxiosInstance } = useContext(AppContext);
   const {
     CategoryTableData,
     filteredArticleTableData,
