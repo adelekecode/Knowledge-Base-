@@ -8,11 +8,12 @@ import {
 } from "../../components";
 import Input from "../../components/Input";
 import Pagination from "../../components/Pagination";
-import { createAxiosInstance } from "../../api/axios";
 import { notifyError, notifySuccess } from "../../components/ToastAlert";
 import { DashboardContext } from "../../contexts/DashboardProvider";
+import { AppContext } from "../../contexts/AppProvider";
 
 const Category = () => {
+  const { createAxiosInstance } = useContext(AppContext);
   const {
     CategoryTableData,
     filteredCategoryTableData,

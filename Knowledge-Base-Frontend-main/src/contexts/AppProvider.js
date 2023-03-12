@@ -1,6 +1,8 @@
 import React, { createContext, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { createAxiosInstance } from "../api/axios";
+import axios from "axios";
+// import axios from "../api/axios";
+import { BaseURL } from "../api/axios";
 import { notifyError, notifySuccess } from "../components/ToastAlert";
 
 export const AppContext = createContext();
@@ -16,6 +18,17 @@ const AppProvider = ({ children }) => {
       refreshToken: localStorage.getItem("refreshToken"),
     } || {}
   );
+
+  function createAxiosInstance() {
+    const accessToken = localStorage.getItem("accessToken");
+    return axios.create({
+      baseURL: BaseURL,
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${accessToken}`,
+      },
+    });
+  }
 
   const userEmail = userData["email"];
   const userRole = userData["userRole"];
@@ -33,7 +46,7 @@ const AppProvider = ({ children }) => {
     } catch (err) {
       console.log("ERROR: ", err);
       if (err.response?.status === 401) {
-        notifyError("You are not authorized");
+        throw new Error("You are not authorized");
       }
     }
   };
@@ -90,6 +103,7 @@ const AppProvider = ({ children }) => {
       .post("/auth/logout", JSON.stringify({ refresh: refreshToken }))
       .then((res) => {
         if (res.status === 204) {
+          setUserData({});
           localStorage.clear();
           setLoading(false);
           navigate("/login");
@@ -127,6 +141,7 @@ const AppProvider = ({ children }) => {
         fetchHomeData,
         logoutHandler,
         setUserData,
+        createAxiosInstance,
       }}
     >
       {children}

@@ -20,48 +20,48 @@ const ProtectRoutes = ({ children }) => {
     }
   });
 
-  if (
-    userData.email &&
-    userData.accessToken &&
-    userData.refreshToken &&
-    userData.userRole &&
-    userData.name
-  ) {
-    axios
-      .post(
-        "/auth/token/verify",
-        JSON.stringify({ token: userData.accessToken })
-      )
-      .then((response) => {})
-      .catch((error) => {
+  (async function () {
+    if (
+      userData.email &&
+      userData.accessToken &&
+      userData.refreshToken &&
+      userData.userRole &&
+      userData.name
+    ) {
+      try {
+        await axios
+          .post("/auth/token/verify", { token: userData.accessToken })
+          .then((response) => console.log("res: /> ", response))
+          .catch(async (error) => {
+            if (error.response?.status === 401) {
+              await axios
+                .post("/auth/refresh", {
+                  refresh: userData.refreshToken,
+                })
+                .then((res) => {
+                  localStorage.setItem("accessToken", res.data.access);
+                  setUserData((prev) => ({
+                    ...prev,
+                    accessToken: res.data.access,
+                  }));
+                })
+                .catch((err) => {
+                  console.log(err);
+                  if (err.response?.status === 401) {
+                    notifyError("You token has expired, please login again");
+                    return navigate("/login");
+                  }
+                });
+            } else {
+              throw new Error("Network Error Occured");
+            }
+          });
+      } catch (error) {
         console.log(error);
-        if (error.response?.status === 401) {
-          axios
-            .post(
-              "/auth/refresh",
-              JSON.stringify({
-                refresh: userData.refreshToken,
-              })
-            )
-            .then((res) => {
-              localStorage.setItem("accessToken", res.data.access);
-              setUserData((prev) => ({
-                ...prev,
-                accessToken: res.data.access,
-              }));
-            })
-            .catch((err) => {
-              console.log(err);
-              if (err.response?.status === 401) {
-                notifyError("You token has expired, please login again");
-                return navigate("/login");
-              }
-            });
-        } else {
-          throw new Error("Network Error Occured");
-        }
-      });
-  }
+      }
+    }
+  })();
+
   return children;
 };
 

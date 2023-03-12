@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import PageTitle from "../../components/PageTitle";
 import Input from "../../components/Input";
 import Button from "../../components/Button";
@@ -10,10 +10,11 @@ import {
 import Pagination from "../../components/Pagination";
 import { notifyError, notifySuccess } from "../../components/ToastAlert";
 import { validEmailHandler } from "../../helper/EmailValidation";
-import { createAxiosInstance } from "../../api/axios";
 import { useRef } from "react";
+import { AppContext } from "../../contexts/AppProvider";
 
 const Staff = () => {
+  const { createAxiosInstance } = useContext(AppContext);
   const [StaffTableData, setStaffTableData] = useState([]);
   const [filteredStaffTableData, setFilteredStaffTableData] = useState(null);
 

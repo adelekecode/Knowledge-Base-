@@ -11,7 +11,6 @@ import { useColor } from "react-color-palette";
 import axios, { BaseURL } from "../../api/axios";
 import { notifyError, notifySuccess } from "../../components/ToastAlert";
 import { AppContext } from "../../contexts/AppProvider";
-import { createAxiosInstance } from "../../api/axios";
 import styled from "styled-components";
 
 const Span = styled.span`
@@ -19,7 +18,8 @@ const Span = styled.span`
 `;
 
 const Setting = () => {
-  const { setLoading, fetchHomeData, homeData } = useContext(AppContext);
+  const { setLoading, fetchHomeData, homeData, createAxiosInstance } =
+    useContext(AppContext);
 
   const defaultLogo = homeData?.image || "";
   const defaultTitleText = homeData?.title || "DataOcli Knowledgebase";

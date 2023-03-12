@@ -4,11 +4,10 @@ import { MdOutlineArticle, MdOutlineVisibility } from "react-icons/md";
 import { BiCategory } from "react-icons/bi";
 import PageTitle from "../../components/PageTitle";
 import BarChart from "../../components/Dashboard/BarChart";
-import { createAxiosInstance } from "../../api/axios";
 import { AppContext } from "../../contexts/AppProvider";
 
 const Dashboard = () => {
-  const { homeData } = useContext(AppContext);
+  const { homeData, createAxiosInstance } = useContext(AppContext);
   const [numCategory, setNumCategory] = useState(0);
   const [numArticle, setNumArticle] = useState(0);
   const [numVisit, setNumVisit] = useState(0);

@@ -36,7 +36,7 @@ const Card = ({ cardData }) => {
     <>
       <div
         className={
-          " border hover:shadow-lg hover:shadow-gray-300 rounded-lg p-7 px-9 flex flex-col cursor-pointer gap-5 bg-white"
+          " border hover:shadow-lg hover:shadow-gray-300 rounded-lg p-7 px-9 flex flex-col gap-5 bg-white"
         }
         style={{ transition: "all 0.2s linear", backgroundColor: "#4040404" }}
       >
@@ -66,7 +66,7 @@ const Card = ({ cardData }) => {
               <div key={uuidv4()}>
                 <Div
                   className={
-                    " flex flex-row items-center gap-2 no-underline w-full pb-2 pt-2"
+                    " flex flex-row items-center gap-2 no-underline w-full pb-2 pt-2 cursor-pointer"
                   }
                   style={{
                     borderBottom: `${

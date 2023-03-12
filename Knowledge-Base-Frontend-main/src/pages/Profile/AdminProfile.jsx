@@ -1,5 +1,4 @@
 import React, { useContext, useState } from "react";
-import { createAxiosInstance } from "../../api/axios";
 import Button from "../../components/Button";
 import PageTitle from "../../components/PageTitle";
 import { notifyError, notifySuccess } from "../../components/ToastAlert";
@@ -8,7 +7,7 @@ import Input from "../../components/Input";
 import { LabelContainer } from "../../components";
 
 const Profile = () => {
-  const { userEmail, userData } = useContext(AppContext);
+  const { userEmail, userData, createAxiosInstance } = useContext(AppContext);
   const [oldPasswordInput, setOldPasswordInput] = useState("");
   const [passwordInput, setPasswordInput] = useState("");
   const [passwordConfirmInput, setPasswordConfirmInput] = useState("");
