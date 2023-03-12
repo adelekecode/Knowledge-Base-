@@ -29,9 +29,9 @@ const ProtectRoutes = ({ children }) => {
       userData.name
     ) {
       try {
-        axios
+        await axios
           .post("/auth/token/verify", { token: userData.accessToken })
-          .then((response) => {})
+          .then((response) => console.log("res: /> ", response))
           .catch(async (error) => {
             if (error.response?.status === 401) {
               await axios
