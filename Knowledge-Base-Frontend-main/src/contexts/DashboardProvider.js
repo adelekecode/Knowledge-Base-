@@ -1,6 +1,5 @@
 import React, { createContext, useContext, useEffect } from "react";
 import { useState } from "react";
-import { notifyError } from "../components/ToastAlert";
 import { AppContext } from "./AppProvider";
 
 export const DashboardContext = createContext();
@@ -33,37 +32,16 @@ const DashboardProvider = ({ children }) => {
       setTableLoading(false);
     }
   };
+
   useEffect(() => {
     fetchCategoryData();
   }, []);
-
-  //! NOTE: This function is not used anywhere
-  function getCategoryHandler() {
-    createAxiosInstance()
-      .get("/category/all")
-      .then((response) => {
-        if (response.status === 200) {
-          return response.data;
-        } else {
-          notifyError("Something went wrong please reload the page");
-        }
-      })
-      .then((data) => {
-        setCategoryTableData(data["all categories"]);
-      })
-      .catch((err) => {
-        console.log(err);
-        // notifyError("Network error occurred");
-        throw new Error("Network error occurred");
-      });
-  }
 
   return (
     <DashboardContext.Provider
       value={{
         CategoryTableData,
         setCategoryTableData,
-        getCategoryHandler,
         filteredCategoryTableData,
         setFilteredCategoryTableData,
         filteredArticleTableData,

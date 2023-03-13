@@ -1,10 +1,9 @@
-import React, { useContext } from "react";
-import { AppContext } from "../../contexts/AppProvider";
+import React from "react";
 import { NotFound } from "../../pages";
 
 const AdminRoutes = ({ children }) => {
-  const { userData } = useContext(AppContext);
-  if (userData.userRole === "admin") {
+  const userRole = localStorage.getItem("userRole");
+  if (userRole === "admin") {
     return children;
   } else {
     return <NotFound />;

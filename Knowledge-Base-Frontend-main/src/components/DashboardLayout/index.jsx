@@ -7,7 +7,6 @@ import Header from "../Dashboard/Header";
 
 const DashoardLayout = () => {
   const [responsive, setResponsive] = useState(false);
-  console.log(responsive);
   return (
     <DashboardProvider>
       <div

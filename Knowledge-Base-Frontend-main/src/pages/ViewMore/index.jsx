@@ -1,7 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import Pagination from "../../components/Pagination";
-import { notifyError } from "../../components/ToastAlert";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import Input from "../../components/Input";
 import ArticleDetailModalDisplay from "../../components/ArticleDetailModalDisplay";
 import styled from "styled-components";
@@ -17,6 +16,7 @@ const P = styled.p`
 const ViewMore = () => {
   const { createAxiosInstance, homeData } = useContext(AppContext);
   const { cardID } = useParams();
+  const navigate = useNavigate();
   const [articleData, setArticleData] = useState([]);
   const [currPage, setCurrPage] = useState(1);
   const rowsPerPage = 8;
@@ -45,6 +45,9 @@ const ViewMore = () => {
         }
       } catch (err) {
         console.log(err);
+        if (err.response?.status === 404) {
+          navigate("*");
+        }
       }
     };
     fetchData();

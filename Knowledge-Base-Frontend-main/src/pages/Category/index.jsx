@@ -65,10 +65,10 @@ const Category = () => {
       )
       .then((response) => {
         if (response.status === 200 || response.status === 201) {
-          setCategoryVal("");
+          fetchCategoryData();
           notifySuccess("Category has been successfully created");
           modalRef.current.checked = false;
-          fetchCategoryData();
+          setCategoryVal("");
         } else {
           notifyError("Something went wrong please try again");
         }
@@ -102,11 +102,11 @@ const Category = () => {
       )
       .then((response) => {
         if (response.status === 200) {
-          setCategoryVal("");
           setCurrentCategory([]);
           notifySuccess("Category has been successfully updated");
           modalRef.current.checked = false;
           fetchCategoryData();
+          setCategoryVal("");
         }
       })
       .catch((err) => {
@@ -128,11 +128,11 @@ const Category = () => {
       .delete(`/category/update/${currentCategory[1].id}`)
       .then((response) => {
         if (response.status === 200) {
-          setCategoryVal("");
           setCurrentCategory([]);
           notifySuccess("Category has been successfully deleted");
           modalRef.current.checked = false;
           fetchCategoryData();
+          setCategoryVal("");
         }
       })
       .catch((err) => {

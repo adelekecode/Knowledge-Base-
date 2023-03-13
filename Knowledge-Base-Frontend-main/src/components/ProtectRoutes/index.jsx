@@ -1,12 +1,11 @@
-import { useContext, useEffect } from "react";
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "../../api/axios";
 import { notifyError } from "../ToastAlert";
-import { AppContext } from "../../contexts/AppProvider";
 
 const ProtectRoutes = ({ children }) => {
-  const { setUserData } = useContext(AppContext);
   const navigate = useNavigate();
+  const userID = localStorage.getItem("userID");
   const name = localStorage.getItem("name");
   const email = localStorage.getItem("email");
   const userRole = localStorage.getItem("userRole");
@@ -14,21 +13,22 @@ const ProtectRoutes = ({ children }) => {
   const refreshToken = localStorage.getItem("refreshToken");
 
   useEffect(() => {
-    if (!email && !accessToken && !refreshToken && !userRole && !name) {
+    if (
+      !email ||
+      !accessToken ||
+      !refreshToken ||
+      !userRole ||
+      !name ||
+      !userID
+    ) {
+      localStorage.clear();
+      notifyError("You are not authorized");
       return navigate("/login");
     }
   });
 
   (async function () {
-    // if (
-    //   userData.email &&
-    //   userData.accessToken &&
-    //   userData.refreshToken &&
-    //   userData.userRole &&
-    //   userData.name
-    // ) {
     try {
-      // await axios
       const accessToken = localStorage.getItem("accessToken");
       const refreshToken = localStorage.getItem("refreshToken");
       await axios
@@ -42,10 +42,6 @@ const ProtectRoutes = ({ children }) => {
               })
               .then((res) => {
                 localStorage.setItem("accessToken", res.data.access);
-                setUserData((prev) => ({
-                  ...prev,
-                  accessToken: res.data.access,
-                }));
               })
               .catch((err) => {
                 console.log(err);

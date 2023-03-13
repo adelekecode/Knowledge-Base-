@@ -4,8 +4,9 @@ import { AppContext } from "../../contexts/AppProvider";
 
 const Logo = ({ className }) => {
   const { homeData } = useContext(AppContext);
+  console.log(homeData.image);
 
-  if (homeData) {
+  if (homeData.image) {
     return (
       <Link id="Logo" to={"/"} className={` ${className || ""}`}>
         <figure className={" max-w-[6rem] "}>

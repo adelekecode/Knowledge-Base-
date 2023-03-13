@@ -8,16 +8,12 @@ import { notifyError, notifySuccess } from "../components/ToastAlert";
 export const AppContext = createContext();
 
 const AppProvider = ({ children }) => {
-  const [userData, setUserData] = useState(
-    {
-      userID: localStorage.getItem("userID"),
-      name: localStorage.getItem("name"),
-      email: localStorage.getItem("email"),
-      userRole: localStorage.getItem("userRole"),
-      accessToken: localStorage.getItem("accessToken"),
-      refreshToken: localStorage.getItem("refreshToken"),
-    } || {}
-  );
+  const userID = localStorage.getItem("userID");
+  const userName = localStorage.getItem("name");
+  const userEmail = localStorage.getItem("email");
+  const userRole = localStorage.getItem("userRole");
+  const userAccessToken = localStorage.getItem("accessToken");
+  const userRefreshToken = localStorage.getItem("refreshToken");
 
   function createAxiosInstance() {
     const accessToken = localStorage.getItem("accessToken");
@@ -30,8 +26,6 @@ const AppProvider = ({ children }) => {
     });
   }
 
-  const userEmail = userData["email"];
-  const userRole = userData["userRole"];
   const [categoryData, setCategoryData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [homeData, setHomeData] = useState({});
@@ -51,24 +45,6 @@ const AppProvider = ({ children }) => {
     }
   };
 
-  function updateUserStorage(data) {
-    localStorage.setItem("accessToken", data["access_token"]);
-    localStorage.setItem("email", data["email"]);
-    localStorage.setItem("refreshToken", data["refresh_token"]);
-    localStorage.setItem("userRole", data["role"]);
-    localStorage.setItem("name", data["name"]);
-    localStorage.setItem("userID", data["id"]);
-
-    setUserData({
-      userID: data["id"],
-      name: data["name"],
-      email: data["email"],
-      userRole: data["role"],
-      accessToken: data["access_token"],
-      refreshToken: data["refresh_token"],
-    });
-  }
-
   const fetchHomeData = async () => {
     createAxiosInstance()
       .get("/admin/profile")
@@ -85,25 +61,25 @@ const AppProvider = ({ children }) => {
 
   useEffect(() => {
     if (
-      userData.email &&
-      userData.accessToken &&
-      userData.refreshToken &&
-      userData.userRole &&
-      userData.name
+      userID &&
+      userAccessToken &&
+      userRefreshToken &&
+      userRole &&
+      userName &&
+      userEmail
     ) {
       fetchHomeData();
     }
-  }, [setHomeData, userData]);
+  }, []);
 
   function logoutHandler() {
     setLoading(true);
-    const refreshToken = userData.refreshToken;
+    const refreshToken = userRefreshToken;
 
     createAxiosInstance()
       .post("/auth/logout", JSON.stringify({ refresh: refreshToken }))
       .then((res) => {
         if (res.status === 204) {
-          setUserData({});
           localStorage.clear();
           setLoading(false);
           navigate("/login");
@@ -127,20 +103,21 @@ const AppProvider = ({ children }) => {
   return (
     <AppContext.Provider
       value={{
-        updateUserStorage,
-        userEmail,
+        userID,
         userRole,
+        userName,
+        userEmail,
+        userAccessToken,
+        userRefreshToken,
         categoryData,
         setCategoryData,
         fetchData,
         loading,
         setLoading,
-        userData,
         homeData,
         setHomeData,
         fetchHomeData,
         logoutHandler,
-        setUserData,
         createAxiosInstance,
       }}
     >

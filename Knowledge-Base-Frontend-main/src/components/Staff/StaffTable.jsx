@@ -33,12 +33,12 @@ const StaffTable = ({ data, onActionClick, tableLoading }) => {
   const elements = Array(8).fill(element);
 
   async function copyToClip(item) {
-    const userData = `
+    const userCopyData = `
     Full name: ${item.name}
     Email: ${item.email}
     Password: ${item.dummy_password}
     `;
-    navigator.clipboard.writeText(userData).then(() => {
+    navigator.clipboard.writeText(userCopyData).then(() => {
       notifySuccess("User data copied");
     });
   }

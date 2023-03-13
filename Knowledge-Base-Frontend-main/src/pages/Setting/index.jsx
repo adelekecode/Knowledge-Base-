@@ -132,7 +132,7 @@ const Setting = () => {
     formData.append("colour", color.hex);
 
     //! NOTE: This will give error if db is cleared
-    if (!(typeof files === "string") || defaultLogo) {
+    if (!(typeof files === "string") || !defaultLogo) {
       formData.append("image", files[0]);
     }
 
@@ -149,7 +149,7 @@ const Setting = () => {
         console.log(err);
         if (err.response?.status === 401) {
           setLoading(false);
-          notifyError("You are not authorized to access this page");
+          // notifyError("You are not authorized to access this page");
         } else if (err.response?.status === 400) {
           setLoading(false);
           notifyError("Settings data is not valid");
