@@ -56,7 +56,8 @@ const Sidebar = ({ responsive, setResponsive }) => {
     <>
       <div
         className={` ${
-          responsive && "w-full fixed bg-[#00000033] h-screen z-[100]"
+          responsive &&
+          " RangeForPhone:w-full RangeForPhone:fixed RangeForPhone:bg-[#00000033] RangeForPhone:h-screen RangeForPhone:z-[100]"
         }`}
       ></div>
       <aside
