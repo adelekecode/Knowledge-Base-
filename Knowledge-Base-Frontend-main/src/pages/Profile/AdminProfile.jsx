@@ -7,7 +7,9 @@ import Input from "../../components/Input";
 import { LabelContainer } from "../../components";
 
 const Profile = () => {
-  const { userEmail, userData, createAxiosInstance } = useContext(AppContext);
+  const { createAxiosInstance } = useContext(AppContext);
+  const email = localStorage.getItem("email");
+  const name = localStorage.getItem("name");
   const [oldPasswordInput, setOldPasswordInput] = useState("");
   const [passwordInput, setPasswordInput] = useState("");
   const [passwordConfirmInput, setPasswordConfirmInput] = useState("");
@@ -53,14 +55,15 @@ const Profile = () => {
       })
       .catch((err) => {
         console.log(err);
-        if (err.response.status === 400) {
+        if (err.response?.status === 400) {
           notifyError("Incorrect Old Password");
-        } else if (err.response.status === 404) {
+        } else if (err.response?.status === 404) {
           notifyError(
             "An error has occurred password was not updated. Please try again"
           );
-        } else if (err.response.status === 401) {
-          notifyError(
+        } else if (err.response?.status === 401) {
+          // notifyError("something went wrong, please try again");
+          throw new Error(
             "You are not authorized to access this. Please login and try again"
           );
         } else {
@@ -89,7 +92,7 @@ const Profile = () => {
                 id="name-input"
                 className="pl-5 w-[60%] SmallPhones$Tablets:w-[90%] Mobile_L_425:w-[100%] flex items-center  justify-start Mobile_L_425:pl-0"
               >
-                {userData?.name}
+                {name}
               </p>
             </LabelContainer>
             <LabelContainer
@@ -99,7 +102,7 @@ const Profile = () => {
               label={"Email Address"}
             >
               <p className=" pl-5 w-[60%] SmallPhones$Tablets:w-[90%] Mobile_L_425:w-[100%] flex items-center justify-start Mobile_L_425:pl-0">
-                {userEmail}
+                {email}
               </p>
             </LabelContainer>
             <LabelContainer

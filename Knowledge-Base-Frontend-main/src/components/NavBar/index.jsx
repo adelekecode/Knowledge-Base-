@@ -4,12 +4,12 @@ import Button from "../Button";
 import { Link } from "react-router-dom";
 import { useContext } from "react";
 import { AppContext } from "../../contexts/AppProvider";
-import { BsFillPersonFill, } from "react-icons/bs";
+import { BsFillPersonFill } from "react-icons/bs";
 import { useState } from "react";
 import { TiArrowSortedDown, TiArrowSortedUp } from "react-icons/ti";
 
 const NavBar = () => {
-  const { userData, logoutHandler } = useContext(AppContext);
+  const { userRole, logoutHandler } = useContext(AppContext);
   const [menuDisplay, setMenuDisplay] = useState(false);
   return (
     <nav className="w-full ">
@@ -25,7 +25,7 @@ const NavBar = () => {
         }
       >
         <Logo />
-        {userData.userRole === "staff" && (
+        {userRole === "staff" && (
           <div className="relative">
             <div
               className={"flex items-center gap-2 cursor-pointer"}
@@ -61,7 +61,7 @@ const NavBar = () => {
             )}
           </div>
         )}
-        {userData.userRole === "admin" && (
+        {userRole === "admin" && (
           <Link to="/dashboard">
             <Button>Dashboard</Button>
           </Link>

@@ -56,13 +56,14 @@ const Lgoin = () => {
       .then((response) => {
         if (response.status === 200 || response.status === 201) {
           const userData = response.data.data;
+          console.log(userData);
           localStorage.setItem("accessToken", userData["access_token"]);
           localStorage.setItem("email", userData["email"]);
           localStorage.setItem("refreshToken", userData["refresh_token"]);
           localStorage.setItem("userRole", userData["role"]);
           localStorage.setItem("name", userData["name"]);
           localStorage.setItem("userID", userData["id"]);
-          updateUserStorage(response.data.data);
+          // updateUserStorage(response.data.data);
           setLoading(false);
           notifySuccess("Logged in successfully");
           if (userData["role"] === "admin") {
@@ -73,7 +74,6 @@ const Lgoin = () => {
         } else {
           setLoading(false);
           notifyError("Something went wrong, please try again ");
-
           throw new Error("Something went wrong, please try again ");
         }
       })
@@ -144,17 +144,6 @@ const Lgoin = () => {
                 This field cannot be empty
               </small>
             </div>
-
-            {/* //? NOTE: this is not used at the moment  */}
-            {/* <div className={"flex items-center gap-4"}>
-              <input
-                type="checkbox"
-                className={" border-0 outline-0 cursor-pointer"}
-              />
-              <p className={"text-gray-600 text-sm"}>
-                I agree to terms and services
-              </p>
-            </div> */}
             <Button
               color={homeData.colour}
               className={

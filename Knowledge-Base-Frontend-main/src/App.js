@@ -24,14 +24,29 @@ import { AppContext } from "./contexts/AppProvider";
 import AdminRoutes from "./components/AdminRoutes";
 
 function App() {
-  const { userData, createAxiosInstance } = useContext(AppContext);
+  const {
+    userID,
+    userRole,
+    userName,
+    userEmail,
+    userAccessToken,
+    userRefreshToken,
+    createAxiosInstance,
+  } = useContext(AppContext);
 
   useEffect(() => {
-    if (userData) {
+    if (
+      userID &&
+      userAccessToken &&
+      userRefreshToken &&
+      userRole &&
+      userName &&
+      userEmail
+    ) {
       const data = {
-        name: userData.name,
-        email: userData.email,
-        role: userData.userRole,
+        name: userName,
+        email: userEmail,
+        role: userRole,
         time_of_visit: new Date().toLocaleString(),
       };
       createAxiosInstance()
@@ -42,8 +57,6 @@ function App() {
         .catch((err) => {
           console.log(err);
           if (err.response?.status === 401) {
-            // notifyError("You are not authorized");
-            // navigate("/login");
             throw new Error("You are not authorized");
           }
         });

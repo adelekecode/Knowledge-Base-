@@ -6,7 +6,7 @@ import { FiMenu } from "react-icons/fi";
 import Logo from "../Logo";
 
 const Header = ({ setResponsive, responsive }) => {
-  const { userData } = useContext(AppContext);
+  const { userName } = useContext(AppContext);
 
   return (
     <div
@@ -28,9 +28,7 @@ const Header = ({ setResponsive, responsive }) => {
         to="/profile"
         className={"flex items-center gap-4 flex-row-reverse"}
       >
-        <p className={"font-medium text-lg Mobile_L_425:hidden"}>
-          {userData?.name}
-        </p>
+        <p className={"font-medium text-lg Mobile_L_425:hidden"}>{userName}</p>
         <div
           className={
             "grid place-content-center border border-gray-300 p-[0.5rem] rounded-full"

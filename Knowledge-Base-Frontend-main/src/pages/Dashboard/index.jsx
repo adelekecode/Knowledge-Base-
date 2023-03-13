@@ -11,7 +11,7 @@ const Dashboard = () => {
   const [numCategory, setNumCategory] = useState(0);
   const [numArticle, setNumArticle] = useState(0);
   const [numVisit, setNumVisit] = useState(0);
-  // const currentDate = new Date();
+  const currentDate = new Date().getFullYear();
   const [monthData, setMonthData] = useState([]);
 
   useEffect(() => {
@@ -39,7 +39,7 @@ const Dashboard = () => {
         throw new Error("Network error occurred");
       });
     createAxiosInstance()
-      .get("/admin/chart/data/2023")
+      .get(`/admin/chart/data/${currentDate}`)
       .then((response) => {
         setMonthData(response.data.month_data);
       })
