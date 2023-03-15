@@ -50,14 +50,11 @@ const ProtectRoutes = ({ children }) => {
                   return navigate("/login");
                 }
               });
-          } else {
-            throw new Error("Network Error Occured");
           }
         });
     } catch (error) {
       console.log("error in try block: > ", error);
     }
-    // }
   })();
 
   return children;
