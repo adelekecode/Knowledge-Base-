@@ -114,9 +114,7 @@ const Staff = () => {
           if (err.response?.status === 400) {
             notifyError("Email is already in use");
           } else if (err.response?.status === 401) {
-            notifyError(
-              "You are not authenticated, please login and try again"
-            );
+            throw new Error(err.message);
           } else if (err.response?.status === 500) {
             notifyError("An error occurred, Please reload the page");
           }
@@ -144,9 +142,7 @@ const Staff = () => {
           if (err.response?.status === 400) {
             notifyError("Email is already in use");
           } else if (err.response?.status === 401) {
-            notifyError(
-              "You are not authenticated, please login and try again"
-            );
+            throw new Error(err.message);
           } else if (err.response?.status === 500) {
             notifyError("An error occurred, Please reload the page");
           }
@@ -280,9 +276,9 @@ const Staff = () => {
         ref={modalRef}
         className="modal-toggle"
       />
-      <div className="modal RangeForPhone:z-[1000]">
+      <div className="modal RangeForPhone:z-[1000] SmallPhones$Tablets:p-4">
         <form
-          className="modal-box relative max-w-none w-[700px]"
+          className="modal-box relative max-w-none w-[700px] SmallPhones$Tablets:w-[500px] "
           onSubmit={(e) => {
             if (currentStaff[1]) {
               if (currentStaff[0] === "active") {
@@ -315,10 +311,16 @@ const Staff = () => {
             </h1>
           </div>
 
-          <main className={"flex flex-col gap-8 px-6"}>
-            <LabelContainer label={"Name"} htmlFor={"user-name"}>
+          <main className={"flex flex-col gap-8 px-6 Mobile_L_425:p-0"}>
+            <LabelContainer
+              className={
+                "SmallPhones$Tablets:flex-col SmallPhones$Tablets:w-full SmallPhones$Tablets:items-start SmallPhones$Tablets:gap-2"
+              }
+              label={"Name"}
+              htmlFor={"user-name"}
+            >
               <Input
-                className={"w-[60%]"}
+                className={"w-[60%] SmallPhones$Tablets:w-full"}
                 readOnly={currentStaff[1] && true}
                 id={"user-name"}
                 type={"text"}
@@ -327,9 +329,15 @@ const Staff = () => {
                 onChangeHandler={(e) => setNameVal(e.target.value)}
               />
             </LabelContainer>
-            <LabelContainer label={"Email"} htmlFor={"user-email"}>
+            <LabelContainer
+              className={
+                "SmallPhones$Tablets:flex-col SmallPhones$Tablets:w-full SmallPhones$Tablets:items-start SmallPhones$Tablets:gap-2"
+              }
+              label={"Email"}
+              htmlFor={"user-email"}
+            >
               <Input
-                className={"w-[60%]"}
+                className={"w-[60%] SmallPhones$Tablets:w-full"}
                 readOnly={currentStaff[1] && true}
                 id={"user-email"}
                 type={"email"}
@@ -338,11 +346,17 @@ const Staff = () => {
                 onChangeHandler={(e) => setEmailVal(e.target.value)}
               />
             </LabelContainer>
-            <div className={"flex items-center justify-between gap-4"}>
-              <label htmlFor="user-role">Role</label>
+            <LabelContainer
+              className={
+                "SmallPhones$Tablets:flex-col SmallPhones$Tablets:w-full SmallPhones$Tablets:items-start SmallPhones$Tablets:gap-2"
+              }
+              // className={"flex items-center justify-between gap-4"}
+              label={"Role"}
+              htmlFor={"user-role"}
+            >
               <select
                 name="user-role-dropdown"
-                className="select w-[60%] border border-gray-300"
+                className="select w-[60%] border border-gray-300 SmallPhones$Tablets:w-full"
                 id="user-role-dropdown"
                 value={roleVal}
                 disabled={currentStaff[1] && true}
@@ -351,7 +365,7 @@ const Staff = () => {
                 <option value="staff">Staff</option>
                 <option value="admin">Admin</option>
               </select>
-            </div>
+            </LabelContainer>
           </main>
 
           <div className="modal-action mt-9">

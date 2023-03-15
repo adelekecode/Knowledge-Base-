@@ -20,6 +20,7 @@ ChartJS.register(
 );
 
 const BarChart = ({ monthData, colour }) => {
+  const date = new Date().getFullYear();
   const options = {
     responsive: true,
     plugins: {
@@ -28,7 +29,7 @@ const BarChart = ({ monthData, colour }) => {
       },
       title: {
         display: true,
-        text: "Data representation of visits",
+        text: `Data representation of visits in ${date}`,
       },
     },
   };
@@ -58,7 +59,7 @@ const BarChart = ({ monthData, colour }) => {
       {
         label: "Visits",
         data: dataArr,
-        backgroundColor: colour,
+        backgroundColor: colour || "#2579ff",
       },
     ],
   };

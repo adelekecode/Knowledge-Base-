@@ -275,7 +275,7 @@ const Article = () => {
         ref={modalRef}
         className="modal-toggle"
       />
-      <div className="modal RangeForPhone:z-[1000]">
+      <div className="modal RangeForPhone:z-[1000] SmallPhones$Tablets:p-4">
         <form
           className="modal-box relative max-w-none w-[700px]"
           onSubmit={(e) => {
@@ -305,11 +305,21 @@ const Article = () => {
             <h1 className="font-semibold text-2xl pb-1">{changeFormText()}</h1>
           </div>
 
-          <section className={"px-8 flex flex-col gap-8 w-[100%]"}>
-            <LabelContainer label={"Category"} htmlFor={"form-select-input"}>
+          <section
+            className={
+              "px-8 flex flex-col gap-8 w-[100%] SmallPhones$Tablets:px-0"
+            }
+          >
+            <LabelContainer
+              className={
+                "SmallPhones$Tablets:flex-col SmallPhones$Tablets:w-full SmallPhones$Tablets:items-start SmallPhones$Tablets:gap-2"
+              }
+              label={"Category"}
+              htmlFor={"form-select-input"}
+            >
               <select
                 id="form-select-input"
-                className="select w-[60%] border border-gray-300"
+                className="select w-[60%] border border-gray-300 SmallPhones$Tablets:w-full"
                 value={category}
                 onChange={(e) => setCategory(Number(e.target.value))}
               >
@@ -322,11 +332,17 @@ const Article = () => {
                 ))}
               </select>
             </LabelContainer>
-            <LabelContainer label={"Title"} htmlFor={"title-input"}>
+            <LabelContainer
+              className={
+                "SmallPhones$Tablets:flex-col SmallPhones$Tablets:w-full SmallPhones$Tablets:items-start SmallPhones$Tablets:gap-2"
+              }
+              label={"Title"}
+              htmlFor={"title-input"}
+            >
               <Input
                 id={"title-input"}
                 readOnly={currentArticle[0] === "delete"}
-                className={" w-[60%]"}
+                className={" w-[60%] SmallPhones$Tablets:w-full"}
                 type="text"
                 value={title}
                 onChangeHandler={(e) => setTitle(e.target.value)}
@@ -334,13 +350,16 @@ const Article = () => {
               />
             </LabelContainer>
             <LabelContainer
+              className={
+                "SmallPhones$Tablets:flex-col SmallPhones$Tablets:w-full SmallPhones$Tablets:items-start SmallPhones$Tablets:gap-2"
+              }
               label={"Glossary Link"}
               htmlFor={"glossary-link-input"}
             >
               <Input
                 id={"glossary-link-input"}
                 readOnly={currentArticle[0] === "delete"}
-                className={" w-[60%]"}
+                className={" w-[60%] SmallPhones$Tablets:w-full"}
                 type="text"
                 value={glossaryLink}
                 onChangeHandler={(e) => setGlossaryLink(e.target.value)}
@@ -348,13 +367,16 @@ const Article = () => {
               />
             </LabelContainer>
             <LabelContainer
+              className={
+                "SmallPhones$Tablets:flex-col SmallPhones$Tablets:w-full SmallPhones$Tablets:items-start SmallPhones$Tablets:gap-2"
+              }
               label={"PlayBook Link"}
               htmlFor={"playbook-link-input"}
             >
               <Input
                 id={"playbook-link-input"}
                 readOnly={currentArticle[0] === "delete"}
-                className={" w-[60%]"}
+                className={" w-[60%] SmallPhones$Tablets:w-full"}
                 type="text"
                 value={playBookLink}
                 onChangeHandler={(e) => setPlayBookLink(e.target.value)}
