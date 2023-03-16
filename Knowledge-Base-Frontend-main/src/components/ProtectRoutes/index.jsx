@@ -57,7 +57,7 @@ const ProtectRoutes = ({ children }) => {
     } catch (error) {
       console.log("error in try block: > ", error);
     }
-  }, 120000);
+  }, 270000);
 
   return children;
 };
