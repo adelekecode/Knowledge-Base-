@@ -81,6 +81,10 @@ const Lgoin = () => {
         if (err.response?.status === 403) {
           setLoading(false);
           notifyError("User with email and password does not exist");
+        } else {
+          setLoading(false);
+
+          notifyError("Network error occurred");
         }
       });
   }

@@ -1,9 +1,11 @@
-import { useEffect } from "react";
+import { useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "../../api/axios";
+import { AppContext } from "../../contexts/AppProvider";
 import { notifyError } from "../ToastAlert";
 
 const ProtectRoutes = ({ children }) => {
+  const { setUserAccessToken } = useContext(AppContext);
   const navigate = useNavigate();
   const userID = localStorage.getItem("userID");
   const name = localStorage.getItem("name");
@@ -24,11 +26,7 @@ const ProtectRoutes = ({ children }) => {
       localStorage.clear();
       notifyError("You are not authorized");
       return navigate("/login");
-    }
-  });
-
-  setInterval(() => {
-    try {
+    } else {
       (async function () {
         const refreshToken = localStorage.getItem("refreshToken");
         await axios
@@ -37,6 +35,7 @@ const ProtectRoutes = ({ children }) => {
           })
           .then((res) => {
             localStorage.setItem("accessToken", res.data.access);
+            setUserAccessToken(res.data.access);
           })
           .catch((err) => {
             console.log(err);
@@ -46,14 +45,30 @@ const ProtectRoutes = ({ children }) => {
             }
           });
       })();
-      //   const accessToken = localStorage.getItem("accessToken");
-      //   await axios
-      //     .post("/auth/token/verify", { token: accessToken })
-      //     // .then((response) => console.log("res: /> ", response))
-      //     .catch(async (error) => {
-      //       if (error.response?.status === 401) {
-      //       }
-      //     });
+    }
+  }, []);
+
+  setInterval(() => {
+    console.log("inter");
+    try {
+      (async function () {
+        const refreshToken = localStorage.getItem("refreshToken");
+        await axios
+          .post("/auth/refresh", {
+            refresh: refreshToken,
+          })
+          .then((res) => {
+            localStorage.setItem("accessToken", res.data.access);
+            setUserAccessToken(res.data.access);
+          })
+          .catch((err) => {
+            console.log(err);
+            if (err.response?.status === 401) {
+              notifyError("You token has expired, please login again");
+              return navigate("/login");
+            }
+          });
+      })();
     } catch (error) {
       console.log("error in try block: > ", error);
     }
