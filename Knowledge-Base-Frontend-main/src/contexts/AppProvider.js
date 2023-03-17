@@ -12,7 +12,9 @@ const AppProvider = ({ children }) => {
   const userName = localStorage.getItem("name");
   const userEmail = localStorage.getItem("email");
   const userRole = localStorage.getItem("userRole");
-  const userAccessToken = localStorage.getItem("accessToken");
+  const [userAccessToken, setUserAccessToken] = useState(
+    localStorage.getItem("accessToken")
+  );
   const userRefreshToken = localStorage.getItem("refreshToken");
 
   function createAxiosInstance() {
@@ -55,7 +57,8 @@ const AppProvider = ({ children }) => {
       })
       .catch((err) => {
         console.log("ERROR: ", err);
-        throw new Error(err?.message);
+        return navigate("/login");
+        // throw new Error(err?.message);
       });
   };
 
@@ -119,6 +122,7 @@ const AppProvider = ({ children }) => {
         fetchHomeData,
         logoutHandler,
         createAxiosInstance,
+        setUserAccessToken,
       }}
     >
       {children}

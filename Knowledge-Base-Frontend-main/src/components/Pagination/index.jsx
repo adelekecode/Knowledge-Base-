@@ -30,7 +30,7 @@ const Pagination = ({ lastPage, setCurrPage, currPage, pages }) => {
               backgroundColor: `${
                 currPage === page ? `${homeData?.colour || "#2579ff"}` : "#fff"
               } `,
-              color: `${currPage === page ? `${"#fff" || "#000"}` : "#fff"}`,
+              color: `${currPage === page ? `${"#fff" || "#000"}` : "#000"}`,
             }}
             onClick={() => setCurrPage(page)}
           >

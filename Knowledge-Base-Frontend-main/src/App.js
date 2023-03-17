@@ -1,4 +1,4 @@
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useNavigate } from "react-router-dom";
 import { useContext, useEffect } from "react";
 import "./App.css";
 import {
@@ -17,11 +17,12 @@ import {
 import { Suspense } from "react";
 import { DashboardLayout, Layout } from "./components";
 import LazyLoader from "./components/LazyLoader";
-import { ToastContainer } from "./components/ToastAlert";
+import { notifyError, ToastContainer } from "./components/ToastAlert";
 import ProtectRoutes from "./components/ProtectRoutes";
 import LoadingState from "./components/LoadingState";
 import { AppContext } from "./contexts/AppProvider";
 import AdminRoutes from "./components/AdminRoutes";
+import axios from "./api/axios";
 
 function App() {
   const {
@@ -33,8 +34,22 @@ function App() {
     userRefreshToken,
     createAxiosInstance,
   } = useContext(AppContext);
+  const navigate = useNavigate();
 
   useEffect(() => {
+    (async function () {
+      const accessToken = localStorage.getItem("accessToken");
+      await axios
+        .post("/auth/token/verify", { token: accessToken })
+        // .then((response) => console.log("res: /> ", response))
+        .catch(async (error) => {
+          if (error.response?.status === 401) {
+            notifyError("You are not authenticated");
+            return navigate("/login");
+          }
+        });
+    })();
+
     if (
       userID &&
       userAccessToken &&
@@ -57,6 +72,7 @@ function App() {
         .catch((err) => {
           console.log(err);
           if (err.response?.status === 401) {
+            navigate("/login");
             throw new Error("You are not authorized");
           }
         });
