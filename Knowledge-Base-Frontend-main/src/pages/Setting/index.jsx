@@ -8,11 +8,11 @@ import { useDropzone } from "react-dropzone";
 import { FiUploadCloud } from "react-icons/fi";
 import { ColorPickerPalette } from "../../components";
 import { useColor } from "react-color-palette";
-import axios, { BaseURL } from "../../api/axios";
 import { notifyError, notifySuccess } from "../../components/ToastAlert";
 import { AppContext } from "../../contexts/AppProvider";
 import styled from "styled-components";
 import createAxiosInstance from "../../api/axios";
+import { createAxiosFormInstance } from "../../api/axios";
 
 const Span = styled.span`
   color: ${(prop) => prop.color || "#2579ff"};
@@ -115,28 +115,24 @@ const Setting = () => {
     e.preventDefault();
     setLoading(true);
 
-    function createAxiosInstance() {
-      const accessToken = localStorage.getItem("accessToken");
-      return axios.create({
-        baseURL: BaseURL,
-        headers: {
-          "Content-Type": "multipart/form-data",
-          Authorization: `Bearer ${accessToken}`,
-        },
-      });
-    }
-
     const formData = new FormData();
     formData.append("title", titleText);
     formData.append("body", bodyText);
     formData.append("colour", color.hex);
 
     //! NOTE: This will give error if db is cleared
+    console.log(">>>", homeData.image);
     if (!(typeof files === "string") || !defaultLogo) {
-      formData.append("image", files[0]);
+      setLoading(false);
+      try {
+        formData.append("image", files[0]);
+      } catch (err) {
+        console.log(err);
+        notifyError("No logo was uploaded");
+      }
     }
 
-    createAxiosInstance
+    createAxiosFormInstance
       .put("/admin/profile", formData)
       .then((response) => {
         if (response.status === 200) {

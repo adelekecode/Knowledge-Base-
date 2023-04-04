@@ -40,7 +40,7 @@ const Profile = () => {
     setOldPasswordInput("");
     setPasswordInput("");
     setPasswordConfirmInput("");
-    createAxiosInstance()
+    createAxiosInstance
       .post(
         `/auth/password`,
         JSON.stringify({
