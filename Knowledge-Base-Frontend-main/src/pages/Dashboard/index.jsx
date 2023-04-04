@@ -5,9 +5,10 @@ import { BiCategory } from "react-icons/bi";
 import PageTitle from "../../components/PageTitle";
 import BarChart from "../../components/Dashboard/BarChart";
 import { AppContext } from "../../contexts/AppProvider";
+import createAxiosInstance from "../../api/axios";
 
 const Dashboard = () => {
-  const { homeData, createAxiosInstance } = useContext(AppContext);
+  const { homeData } = useContext(AppContext);
   const [numCategory, setNumCategory] = useState(0);
   const [numArticle, setNumArticle] = useState(0);
   const [numVisit, setNumVisit] = useState(0);
@@ -15,21 +16,21 @@ const Dashboard = () => {
   const [monthData, setMonthData] = useState([]);
 
   useEffect(() => {
-    createAxiosInstance()
+    createAxiosInstance
       .get("/admin/category/total")
       .then((response) => setNumCategory(response.data.total_category))
       .catch((err) => {
         console.log(err);
         throw new Error("Network error occurred");
       });
-    createAxiosInstance()
+    createAxiosInstance
       .get("/admin/articles/total")
       .then((response) => setNumArticle(response.data.total_articles))
       .catch((err) => {
         console.log(err);
         throw new Error("Network error occurred");
       });
-    createAxiosInstance()
+    createAxiosInstance
       .get("/admin/total/visits")
       .then((response) => {
         setNumVisit(response.data.total_vist);
@@ -38,7 +39,7 @@ const Dashboard = () => {
         console.log(err);
         throw new Error("Network error occurred");
       });
-    createAxiosInstance()
+    createAxiosInstance
       .get(`/admin/chart/data/${currentDate}`)
       .then((response) => {
         setMonthData(response.data.month_data);

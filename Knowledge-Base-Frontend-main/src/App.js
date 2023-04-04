@@ -23,6 +23,7 @@ import LoadingState from "./components/LoadingState";
 import { AppContext } from "./contexts/AppProvider";
 import AdminRoutes from "./components/AdminRoutes";
 import axios from "./api/axios";
+import createAxiosInstance from "./api/axios";
 
 function App() {
   const {
@@ -32,23 +33,22 @@ function App() {
     userEmail,
     userAccessToken,
     userRefreshToken,
-    createAxiosInstance,
   } = useContext(AppContext);
   const navigate = useNavigate();
 
   useEffect(() => {
-    (async function () {
-      const accessToken = localStorage.getItem("accessToken");
-      await axios
-        .post("/auth/token/verify", { token: accessToken })
-        // .then((response) => console.log("res: /> ", response))
-        .catch(async (error) => {
-          if (error.response?.status === 401) {
-            notifyError("You are not authenticated");
-            return navigate("/login");
-          }
-        });
-    })();
+    // (async function () {
+    //   const accessToken = localStorage.getItem("accessToken");
+    //   await axios
+    //     .post("/auth/token/verify", { token: accessToken })
+    //     // .then((response) => console.log("res: /> ", response))
+    //     .catch(async (error) => {
+    //       if (error.response?.status === 401) {
+    //         notifyError("You are not authenticated");
+    //         return navigate("/login");
+    //       }
+    //     });
+    // })();
 
     if (
       userID &&
@@ -64,17 +64,16 @@ function App() {
         role: userRole,
         time_of_visit: new Date().toLocaleString(),
       };
-      createAxiosInstance()
+      createAxiosInstance
         .post("/admin/total/visits", data)
         .then((response) => {
           console.log(">>> ", response.data.response);
         })
         .catch((err) => {
           console.log(err);
-          if (err.response?.status === 401) {
-            navigate("/login");
-            throw new Error("You are not authorized");
-          }
+          // if (err.response?.status === 401) {
+          //   navigate("/login");
+          // }
         });
     }
   }, []);

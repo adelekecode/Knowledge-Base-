@@ -6,6 +6,7 @@ import ArticleDetailModalDisplay from "../../components/ArticleDetailModalDispla
 import styled from "styled-components";
 import { SiReadthedocs } from "react-icons/si";
 import { AppContext } from "../../contexts/AppProvider";
+import createAxiosInstance from "../../api/axios";
 
 const P = styled.p`
   &:hover {
@@ -14,7 +15,7 @@ const P = styled.p`
 `;
 
 const ViewMore = () => {
-  const { createAxiosInstance, homeData } = useContext(AppContext);
+  const { homeData } = useContext(AppContext);
   const { cardID } = useParams();
   const navigate = useNavigate();
   const [articleData, setArticleData] = useState([]);
@@ -35,7 +36,7 @@ const ViewMore = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await createAxiosInstance().get(
+        const response = await createAxiosInstance.get(
           `/category/articles/${cardID}`
         );
         if (response.status === 200) {

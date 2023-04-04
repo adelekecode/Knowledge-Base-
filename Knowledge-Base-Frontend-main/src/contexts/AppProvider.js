@@ -1,10 +1,8 @@
 import React, { createContext, useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
-// import axios from "../api/axios";
-import { BaseURL } from "../api/axios";
 import { notifyError, notifySuccess } from "../components/ToastAlert";
 
+import createAxiosInstance from "../api/axios";
 export const AppContext = createContext();
 
 const AppProvider = ({ children }) => {
@@ -17,16 +15,16 @@ const AppProvider = ({ children }) => {
   );
   const userRefreshToken = localStorage.getItem("refreshToken");
 
-  function createAxiosInstance() {
-    const accessToken = localStorage.getItem("accessToken");
-    return axios.create({
-      baseURL: BaseURL,
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${accessToken}`,
-      },
-    });
-  }
+  // function createAxiosInstance() {
+  //   const accessToken = localStorage.getItem("accessToken");
+  //   return axios.create({
+  //     baseURL: BaseURL,
+  //     headers: {
+  //       "Content-Type": "application/json",
+  //       Authorization: `Bearer ${accessToken}`,
+  //     },
+  //   });
+  // }
 
   const [categoryData, setCategoryData] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -35,7 +33,7 @@ const AppProvider = ({ children }) => {
 
   const fetchData = async () => {
     try {
-      const response = await createAxiosInstance().get("/category/data/list");
+      const response = await createAxiosInstance.get("/category/data/list");
       if (response.status === 200) {
         setCategoryData(response.data);
       }
@@ -48,7 +46,7 @@ const AppProvider = ({ children }) => {
   };
 
   const fetchHomeData = async () => {
-    createAxiosInstance()
+    createAxiosInstance
       .get("/admin/profile")
       .then((response) => {
         if (response.status === 200) {
@@ -57,8 +55,7 @@ const AppProvider = ({ children }) => {
       })
       .catch((err) => {
         console.log("ERROR: ", err);
-        return navigate("/login");
-        // throw new Error(err?.message);
+        // return navigate("/login");
       });
   };
 
@@ -79,7 +76,7 @@ const AppProvider = ({ children }) => {
     setLoading(true);
     const refreshToken = userRefreshToken;
 
-    createAxiosInstance()
+    createAxiosInstance
       .post("/auth/logout", JSON.stringify({ refresh: refreshToken }))
       .then((res) => {
         if (res.status === 204) {
@@ -121,7 +118,6 @@ const AppProvider = ({ children }) => {
         setHomeData,
         fetchHomeData,
         logoutHandler,
-        createAxiosInstance,
         setUserAccessToken,
       }}
     >

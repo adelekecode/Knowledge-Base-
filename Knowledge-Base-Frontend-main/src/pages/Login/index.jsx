@@ -81,6 +81,9 @@ const Lgoin = () => {
         if (err.response?.status === 403) {
           setLoading(false);
           notifyError("User with email and password does not exist");
+        } else if (err.response?.status === 401) {
+          setLoading(false);
+          notifyError("You are not authorized to access this page");
         } else {
           setLoading(false);
 

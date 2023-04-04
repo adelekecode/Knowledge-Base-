@@ -12,9 +12,9 @@ import { notifyError, notifySuccess } from "../../components/ToastAlert";
 import { validEmailHandler } from "../../helper/EmailValidation";
 import { useRef } from "react";
 import { AppContext } from "../../contexts/AppProvider";
+import createAxiosInstance from "../../api/axios";
 
 const Staff = () => {
-  const { createAxiosInstance } = useContext(AppContext);
   const [StaffTableData, setStaffTableData] = useState([]);
   const [filteredStaffTableData, setFilteredStaffTableData] = useState(null);
 
@@ -43,7 +43,7 @@ const Staff = () => {
   const fetchStaffData = async () => {
     try {
       setTableLoading(true);
-      const response = await createAxiosInstance().get("/auth/all_users");
+      const response = await createAxiosInstance.get("/auth/all_users");
       if (response.status === 200) {
         setStaffTableData(response.data);
         setFilteredStaffTableData(response.data);
@@ -92,7 +92,7 @@ const Staff = () => {
     }
 
     if (roleVal === "staff") {
-      createAxiosInstance()
+      createAxiosInstance
         .post(
           "/auth/register/user",
           JSON.stringify({
@@ -120,7 +120,7 @@ const Staff = () => {
           }
         });
     } else if (roleVal === "admin") {
-      createAxiosInstance()
+      createAxiosInstance
         .post(
           "/auth/register/admin",
           JSON.stringify({
@@ -153,7 +153,7 @@ const Staff = () => {
   function blockUserHandler(e) {
     e.preventDefault();
 
-    createAxiosInstance()
+    createAxiosInstance
       .delete(`/auth/userinfo/${currentStaff[1].id}`)
       .then((response) => {
         if (response.status === 200) {
@@ -176,7 +176,7 @@ const Staff = () => {
   function unBlockUserHandler(e) {
     e.preventDefault();
 
-    createAxiosInstance()
+    createAxiosInstance
       .patch(`/auth/userinfo/${currentStaff[1].id}`)
       .then((response) => {
         if (response.status === 200) {

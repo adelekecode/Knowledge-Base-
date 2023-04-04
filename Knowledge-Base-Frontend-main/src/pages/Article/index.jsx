@@ -11,9 +11,9 @@ import PageTitle from "../../components/PageTitle";
 import Input from "../../components/Input";
 import { notifyError, notifySuccess } from "../../components/ToastAlert";
 import { AppContext } from "../../contexts/AppProvider";
+import createAxiosInstance from "../../api/axios";
 
 const Article = () => {
-  const { createAxiosInstance } = useContext(AppContext);
   const {
     CategoryTableData,
     filteredArticleTableData,
@@ -46,9 +46,7 @@ const Article = () => {
   const fetchArticleData = async () => {
     try {
       setTableLoading(true);
-      const response = await createAxiosInstance().get(
-        "/category/article/list"
-      );
+      const response = await createAxiosInstance.get("/category/article/list");
       if (response.status === 200) {
         setArticleTableData(response.data.flat());
         setFilteredArticleTableData(response.data.flat());
@@ -108,7 +106,7 @@ const Article = () => {
       notifyError("Article input cannot be empty");
     }
 
-    createAxiosInstance()
+    createAxiosInstance
       .post(
         "/category/article/create",
         JSON.stringify({
@@ -143,7 +141,7 @@ const Article = () => {
       notifyError("Article input cannot be empty");
     }
 
-    createAxiosInstance()
+    createAxiosInstance
       .put(
         `/category/article/update/${currentArticle[1].article_id}`,
         JSON.stringify({
@@ -176,7 +174,7 @@ const Article = () => {
       notifyError("Article input cannot be empty");
     }
 
-    createAxiosInstance()
+    createAxiosInstance
       .delete(`/category/article/update/${currentArticle[1].article_id}`)
       .then((response) => {
         if (response.status === 200) {
