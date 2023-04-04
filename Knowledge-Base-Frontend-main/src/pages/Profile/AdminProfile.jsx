@@ -5,9 +5,9 @@ import { notifyError, notifySuccess } from "../../components/ToastAlert";
 import { AppContext } from "../../contexts/AppProvider";
 import Input from "../../components/Input";
 import { LabelContainer } from "../../components";
+import createAxiosInstance from "../../api/axios";
 
 const Profile = () => {
-  const { createAxiosInstance } = useContext(AppContext);
   const email = localStorage.getItem("email");
   const name = localStorage.getItem("name");
   const [oldPasswordInput, setOldPasswordInput] = useState("");

@@ -12,14 +12,14 @@ import axios, { BaseURL } from "../../api/axios";
 import { notifyError, notifySuccess } from "../../components/ToastAlert";
 import { AppContext } from "../../contexts/AppProvider";
 import styled from "styled-components";
+import createAxiosInstance from "../../api/axios";
 
 const Span = styled.span`
   color: ${(prop) => prop.color || "#2579ff"};
 `;
 
 const Setting = () => {
-  const { setLoading, fetchHomeData, homeData, createAxiosInstance } =
-    useContext(AppContext);
+  const { setLoading, fetchHomeData, homeData } = useContext(AppContext);
 
   const defaultLogo = homeData?.image || "";
   const defaultTitleText = homeData?.title || "DataOcli Knowledgebase";
@@ -37,7 +37,7 @@ const Setting = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await createAxiosInstance().get("/admin/profile");
+        const response = await createAxiosInstance.get("/admin/profile");
         if (response.status === 200) {
           const data = response.data.page_data;
           setFiles(data.image);
@@ -136,7 +136,7 @@ const Setting = () => {
       formData.append("image", files[0]);
     }
 
-    createAxiosInstance()
+    createAxiosInstance
       .put("/admin/profile", formData)
       .then((response) => {
         if (response.status === 200) {

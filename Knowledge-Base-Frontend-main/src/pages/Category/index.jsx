@@ -11,9 +11,9 @@ import Pagination from "../../components/Pagination";
 import { notifyError, notifySuccess } from "../../components/ToastAlert";
 import { DashboardContext } from "../../contexts/DashboardProvider";
 import { AppContext } from "../../contexts/AppProvider";
+import createAxiosInstance from "../../api/axios";
 
 const Category = () => {
-  const { createAxiosInstance } = useContext(AppContext);
   const {
     CategoryTableData,
     filteredCategoryTableData,
@@ -56,7 +56,7 @@ const Category = () => {
       return;
     }
 
-    createAxiosInstance()
+    createAxiosInstance
       .post(
         "/category/create",
         JSON.stringify({
@@ -93,7 +93,7 @@ const Category = () => {
       return;
     }
 
-    createAxiosInstance()
+    createAxiosInstance
       .put(
         `/category/update/${currentCategory[1].id}`,
         JSON.stringify({
@@ -124,7 +124,7 @@ const Category = () => {
   function deleteCategoryHandler(e) {
     e.preventDefault();
 
-    createAxiosInstance()
+    createAxiosInstance
       .delete(`/category/update/${currentCategory[1].id}`)
       .then((response) => {
         if (response.status === 200) {

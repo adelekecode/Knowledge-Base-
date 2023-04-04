@@ -1,11 +1,10 @@
-import React, { createContext, useContext, useEffect } from "react";
+import React, { createContext, useEffect } from "react";
 import { useState } from "react";
-import { AppContext } from "./AppProvider";
+import createAxiosInstance from "../api/axios";
 
 export const DashboardContext = createContext();
 
 const DashboardProvider = ({ children }) => {
-  const { createAxiosInstance } = useContext(AppContext);
   const [CategoryTableData, setCategoryTableData] = useState([]);
 
   const [filteredCategoryTableData, setFilteredCategoryTableData] =
@@ -20,7 +19,7 @@ const DashboardProvider = ({ children }) => {
   const fetchCategoryData = async () => {
     try {
       setTableLoading(true);
-      const response = await createAxiosInstance().get("/category/all");
+      const response = await createAxiosInstance.get("/category/all");
       if (response.status === 200) {
         setCategoryTableData(response.data["all categories"]);
         setFilteredCategoryTableData(response.data["all categories"]);

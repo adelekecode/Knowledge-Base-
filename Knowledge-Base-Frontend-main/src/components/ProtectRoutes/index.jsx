@@ -48,31 +48,31 @@ const ProtectRoutes = ({ children }) => {
     }
   }, []);
 
-  setInterval(() => {
-    console.log("inter");
-    try {
-      (async function () {
-        const refreshToken = localStorage.getItem("refreshToken");
-        await axios
-          .post("/auth/refresh", {
-            refresh: refreshToken,
-          })
-          .then((res) => {
-            localStorage.setItem("accessToken", res.data.access);
-            setUserAccessToken(res.data.access);
-          })
-          .catch((err) => {
-            console.log(err);
-            if (err.response?.status === 401) {
-              notifyError("You token has expired, please login again");
-              return navigate("/login");
-            }
-          });
-      })();
-    } catch (error) {
-      console.log("error in try block: > ", error);
-    }
-  }, 270000);
+  // setInterval(() => {
+  //   console.log("inter");
+  //   try {
+  //     (async function () {
+  //       const refreshToken = localStorage.getItem("refreshToken");
+  //       await axios
+  //         .post("/auth/refresh", {
+  //           refresh: refreshToken,
+  //         })
+  //         .then((res) => {
+  //           localStorage.setItem("accessToken", res.data.access);
+  //           setUserAccessToken(res.data.access);
+  //         })
+  //         .catch((err) => {
+  //           console.log(err);
+  //           if (err.response?.status === 401) {
+  //             notifyError("You token has expired, please login again");
+  //             return navigate("/login");
+  //           }
+  //         });
+  //     })();
+  //   } catch (error) {
+  //     console.log("error in try block: > ", error);
+  //   }
+  // }, 270000);
 
   return children;
 };
